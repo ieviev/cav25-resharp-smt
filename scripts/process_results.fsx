@@ -68,22 +68,16 @@ type BenchResult = {
 
             let result =
                 match values.[4] with
-                | "0###result: sat" -> Sat
-                | "0###result: unsat" -> Unsat
-                | "0###result: unknown" -> Unknown
-                | "1###result:TO" -> Timeout
+                | "result: sat" -> Sat
+                | "result: unsat" -> Unsat
+                | "result: unknown" -> Unknown
+                | "result:TO" -> Timeout
                 | _ -> Other(values.[4])
 
 
             {
                 path = values.[2]
-                result =
-                    match values.[4] with
-                    | "0###result: sat" -> Sat
-                    | "0###result: unsat" -> Unsat
-                    | "0###result: unknown" -> Unknown
-                    | "1###result:TO" -> Timeout
-                    | _ -> Other(values.[4])
+                result = result
                 time =
                     match result with
                     | Sat
