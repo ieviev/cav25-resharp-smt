@@ -3,7 +3,6 @@
 INPUT=$1
 LOOPS=$2
 let SEQLOOPS=$LOOPS-1
-echo "$SEQLOOPS"
 
 SCRIPT_DIR="/tools"
 executable="${SCRIPT_DIR}/resharp-solver"
