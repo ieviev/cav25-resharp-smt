@@ -1,0 +1,15 @@
+/.direnv/
+/pythonpackages
+/results
+/venv
+/inputs/*.tasks
+/figs/*
+#/scripts
+# /formulae
+/cav25.tar
+__pycache__
+/cav25/results/
+/cav25/figs/
+/cav25/formulae/
+*.tar.xz
+*.tar

@@ -1,0 +1,16 @@
+[package]
+name = "resharp-solver"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+testing = []
+count_derivatives = ["resharp-algebra/count_derivatives"]
+
+[dependencies]
+resharp-parser = { version = "0.1.0", path = "../resharp-parser" }
+smt2parser = { version = "0.6.1", path = "../smt2parser" }
+resharp-algebra = { version = "0.1.0", path = "../resharp-algebra" }
+
+[lib]
+name = "resharp_solver"

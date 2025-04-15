@@ -1,0 +1,6 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "source/resharp-algebra/Cargo.toml",
+        "source/resharp-solver/Cargo.toml",
+    ]
+}

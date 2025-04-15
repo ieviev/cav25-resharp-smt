@@ -1,0 +1,26 @@
+z3-4.13.4:
+  cmd: ../tools/z3-wrap.sh $1 $2
+
+z3str3-4.13.4:
+  cmd: ../tools/z3str3-wrap.sh $1 $2
+
+z3str4:
+  cmd: ../tools/z3str4-wrap.sh $1 $2
+
+z3-noodler-e4535f1010356a7aa074121e399d87d23fddc0bc:
+  cmd: ../tools/z3-noodler-wrap.sh $1 $2
+
+cvc5-1.2.0:
+  cmd: ../tools/cvc5-wrap.sh $1 $2
+
+resharp-solver:
+  cmd: ../tools/resharp-solver-wrap.sh $1 $2
+
+ostrich:
+  cmd: ../tools/ostrich-wrap.sh $1 $2
+
+ostrichrecl:
+  cmd: ../tools/ostrichrecl-wrap.sh $1 $2
+
+z3alpha:
+  cmd: ../tools/z3alpha-wrap.sh $1 $2

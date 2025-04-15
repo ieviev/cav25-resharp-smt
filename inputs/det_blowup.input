@@ -1,0 +1,14 @@
+../formulae/regex-smt-benchmarks/det_blowup/unsat/digit05_unsat.smt2
+../formulae/regex-smt-benchmarks/det_blowup/unsat/det_blowup_unsat_10.smt2
+../formulae/regex-smt-benchmarks/det_blowup/unsat/det_blowup_unsat_3.smt2
+../formulae/regex-smt-benchmarks/det_blowup/unsat/det_blowup_unsat_5.smt2
+../formulae/regex-smt-benchmarks/det_blowup/unsat/digit10_unsat.smt2
+../formulae/regex-smt-benchmarks/det_blowup/unsat/digit20_unsat.smt2
+../formulae/regex-smt-benchmarks/det_blowup/unsat/det_blowup_unsat_100.smt2
+../formulae/regex-smt-benchmarks/det_blowup/unsat/digit15_unsat.smt2
+../formulae/regex-smt-benchmarks/det_blowup/unsat/det_blowup_unsat_1.smt2
+../formulae/regex-smt-benchmarks/det_blowup/sat/det_blowup_sat_5.smt2
+../formulae/regex-smt-benchmarks/det_blowup/sat/det_blowup_sat_10.smt2
+../formulae/regex-smt-benchmarks/det_blowup/sat/det_blowup_sat_3.smt2
+../formulae/regex-smt-benchmarks/det_blowup/sat/det_blowup_sat_1000.smt2
+../formulae/regex-smt-benchmarks/det_blowup/sat/det_blowup_sat_100.smt2
