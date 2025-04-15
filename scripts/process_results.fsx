@@ -9,6 +9,7 @@ let figs_path = "../figs"
 let mkplot_script = __SOURCE_DIRECTORY__ + "/mkplot/mkplot.py"
 let figs_data_path = "../figs/data"
 let value_if_zero = 0.001
+let value_if_failed = 6.
 
 let run_process(name, args: string, work_directory: string) =
     task {
@@ -65,20 +66,31 @@ type BenchResult = {
         else
             let values: string array = line.Split(';')
 
+            let result =
+                match values.[4] with
+                | "0###result: sat" -> Sat
+                | "0###result: unsat" -> Unsat
+                | "0###result: unknown" -> Unknown
+                | "1###result:TO" -> Timeout
+                | _ -> Other(values.[4])
+
+
             {
                 path = values.[2]
                 result =
                     match values.[4] with
-                    | "result: sat" -> Sat
-                    | "result: unsat" -> Unsat
-                    | "result: unknown" -> Unknown
-                    | "result:TO" -> Timeout
+                    | "0###result: sat" -> Sat
+                    | "0###result: unsat" -> Unsat
+                    | "0###result: unknown" -> Unknown
+                    | "1###result:TO" -> Timeout
                     | _ -> Other(values.[4])
                 time =
-                    match values.[4] with
-                    | "result:TO" -> 0.
-                    | _ -> float values.[6]
-
+                    match result with
+                    | Sat
+                    | Unsat ->
+                        let time = float values.[6]
+                        if time = 0. then value_if_zero else time
+                    | _ -> value_if_failed
             }
 
 
@@ -153,10 +165,15 @@ let get_results folder tool_name =
         |> Seq.map (fun (key, bench) ->
             key,
             match bench.result with
-            | (SatResult.Unknown | SatResult.Timeout)
+            | SatResult.Timeout -> {
+                status = true
+                rtime = value_if_failed
+                res = bench.result
+              }
+            | (SatResult.Unknown)
             | SatResult.Other _ -> {
                 status = false
-                rtime = 10
+                rtime = value_if_failed
                 res = bench.result
               }
             | _ ->
@@ -219,13 +236,14 @@ let generate_plot_image =
             "--ymax 10"
             "--ymin 0.0001"
             "--font-sz 18"
-            "--backend=png"  // "--backend=pdf"
+            "--backend=png" // "--backend=pdf"
             "--ylog"
             solver_json_files
         ]
+
     run_process("/usr/bin/env", $"python \"{mkplot_script}\" {plot_args}", figs_path).Wait()
 
-    (*
+(*
     stdout.WriteLine $"converting {figs_path}/plot.pdf to {figs_path}/plot.png"
 
     run_process(
