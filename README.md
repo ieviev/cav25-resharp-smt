@@ -5,6 +5,10 @@ described in **§5** in our paper.
 
 The artifact is hosted at https://doi.org/10.5281/zenodo.15210805
 
+Supported claims:
+- a) Cactus plot in Figure 1
+- b) Timeout results in Table 1
+
 # Getting Started
 First, you need to ensure that `Docker` is installed in your machine.
 
