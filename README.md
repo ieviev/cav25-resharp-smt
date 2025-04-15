@@ -3,7 +3,7 @@ In this artifact, we provide the source code and required materials to reproduce
 This appendix describes how to replicate the experiments as
 described in **§5** in our paper.
 
-The artifact is hosted at https://zenodo.org/records/15210806
+The artifact is hosted at https://doi.org/10.5281/zenodo.15210805
 
 # Getting Started
 First, you need to ensure that `Docker` is installed in your machine.
@@ -138,24 +138,28 @@ lrwxrwxrwx 1 root root  14 Apr 13 16:17 z3str4 -> /z3str4/z3str4
 
 The artifact uses a modified version of Pycobench to run benchmarks and collect the data.
 
-Waiting for the timeouts in full results can take very long, so we recommend running a subset of the benchmarks first with `run_bench_singlerun.sh`, and then comparing the tools with `run_bench.sh` for more accurate measurements after.
-
 ## Other scripts
 
 We also provide some scripts that mount `./results` and `./figs/` inside the container, so the results can be viewed on the host machine. We encourage you to inspect and modify these scripts as needed.
 The scripts are described as follows:
 - `interactive_shell.sh` enters a shell inside the container
 - `run_bench_singlerun.sh` and `run_bench.sh` run benchmarks inside the container. see `Running the benchmarks` for options
-- `run_benchmarks_small.sh` runs a subset of the benchmarks without extra repetitions for accuracy
-- `run_benchmarks_long.sh` runs all the benchmarks with extra repetitions (warning: this can take more than a day waiting for timeouts)
-- `create-figures.sh` generates the plot from the contents of the `./results` directory
+- `create-figures.sh` generates the cactus plot and timeouts table from the contents of the `./results` directory at `./figs/plot.png` and `./figs/timeouts.txt` respectively.
 - `export_benchmarks.sh` exports the benchmark SMT files to `./formulae/`
 - `export_source.sh` exports the source directory for `resharp-solver` to `./src/`
+
+evaluation scripts:
+- `run_benchmarks_small.sh` runs a small subset of the benchmarks without extra repetitions for accuracy (should take around 10 minutes)
+- `run_benchmarks_long.sh` runs all the benchmarks with extra repetitions (warning: this can take more than 24 hours waiting for timeouts)
 
 
 ## Reusability
 
 the source code for `resharp-solver` is located in the `source/` directory of the container and on GitHub at https://github.com/ieviev/cav25-resharp-smt
+
+- the Dockerfile used to build the container is located at the root of the GitHub repository
+- the tool can be used as a regex sat solver by passing a `.smt2` file as an argument: (see `source/resharp-solver/src/main.rs`)
+- the solver can also be used in a rust library directly e.g., see the solver implementation (`source/resharp-solver/src/resharp_smt.rs`) for examples
 
 
 
