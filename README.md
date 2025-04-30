@@ -47,6 +47,17 @@ docker image ls
 ```
 If the image was successfully imported, you can see an image named `cav25` after running this command.
 
+## Scripts provided
+
+We also provide some scripts that mount `./results` and `./figs/` inside the container, so the results can be viewed on the host machine. We encourage you to inspect and modify these scripts as needed.
+The scripts are described as follows:
+- `interactive_shell.sh` enters a shell inside the container
+- `create-figures.sh` generates the cactus plot and timeouts table from the contents of the `./results` directory at `./figs/plot.png` and `./figs/timeouts.txt` respectively.
+- `export_benchmarks.sh` exports the benchmark SMT files to `./formulae/`
+- `export_source.sh` exports the source directory for `resharp-solver` to `./src/`
+- `run_bench.sh` and `run_bench_with_repetitions.sh` run the benchmarks with options (see `Running the benchmarks`)
+- `run_benchmarks_small.sh`, `run_benchmarks_with_repetitions_small.sh` and `run_benchmarks_long.sh` run a set of benchmarks, (see `Scripts to run for the evaluation`)
+
 
 ### Running the benchmarks
 
@@ -131,18 +142,8 @@ lrwxrwxrwx 1 root root  14 Apr 13 16:17 z3str4 -> /z3str4/z3str4
 
 The artifact uses a modified version of Pycobench to run benchmarks and collect the data.
 
-## Other scripts
 
-We also provide some scripts that mount `./results` and `./figs/` inside the container, so the results can be viewed on the host machine. We encourage you to inspect and modify these scripts as needed.
-The scripts are described as follows:
-- `interactive_shell.sh` enters a shell inside the container
-- `run_bench_singlerun.sh` and `run_bench.sh` run benchmarks inside the container. see `Running the benchmarks` for options
-- `create-figures.sh` generates the cactus plot and timeouts table from the contents of the `./results` directory at `./figs/plot.png` and `./figs/timeouts.txt` respectively.
-- `export_benchmarks.sh` exports the benchmark SMT files to `./formulae/`
-- `export_source.sh` exports the source directory for `resharp-solver` to `./src/`
-
-
-## Scripts to run for the evaluation:
+## Instructions for evaluation:
 
 First, we recommend running `run_benchmarks_small.sh` for a small evaluation, this runs a small subset of difficult problems for all solvers and should take around 10 minutes to complete.
 
