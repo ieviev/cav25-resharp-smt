@@ -141,9 +141,6 @@ The scripts are described as follows:
 - `export_benchmarks.sh` exports the benchmark SMT files to `./formulae/`
 - `export_source.sh` exports the source directory for `resharp-solver` to `./src/`
 
-evaluation scripts:
-- `run_benchmarks_small.sh` runs a small subset of the benchmarks without extra repetitions for accuracy (should take around 10 minutes)
-- `run_benchmarks_long.sh` runs all the benchmarks with extra repetitions (warning: this can take more than 24 hours waiting for timeouts)
 
 ## Scripts to run for the evaluation:
 
