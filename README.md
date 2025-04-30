@@ -50,39 +50,28 @@ If the image was successfully imported, you can see an image named `cav25` after
 
 ### Running the benchmarks
 
-To run the benchmarks we have provided 2 scripts with identical command line options
-```shell
-run_bench.sh
-```
-
-and
-
-```shell
-run_bench_singlerun.sh
-```
+To run the benchmarks we have provided 2 scripts with identical command line options: `run_bench.sh` and `run_bench_with_repetitions.sh`
 
 When invoked with no command line option, they default to running all benchmarks with all tools a single process at a time.
 
-For some of the tools running some of the benchmarks with a single invocation of the command yields 0.0 s as the result is below the resolution of /usr/bin/time (0.01 s). The `run_bench_singlerun.sh`
-runs each tool on each benchmark just once, but does not produce accurate timing data. The command `run_bench.sh` repeats the commands 10 to 1000 times depending on the tool to average out run times
-and provide better runtime resolution down to tenths of milliseconds.
+`run_bench.sh` runs each tool on each benchmark just once, but does not produce accurate timing data. The command `run_bench_with_repetitions.sh` repeats the commands 10 to 1000 times depending on the tool to average out run times and provide better runtime resolution down to tenths of milliseconds.
 
 Help is displayed with
 
 ```shell
-run_bench_singlerun.sh --help
+run_bench.sh --help
 ```
 
 The tool `resharp-solver` can be run with benchmark `date` using the following command line:
 
 ```shell
-run_bench_singlerun.sh -t resharp-solver date
+run_bench.sh -t resharp-solver date
 ```
 
 If the processor has many cores, one can use the `-j` option (note, as e.g. Ostrich uses multiple cores, the argument to `-j` should be at least 4 times lower than the core count. E.g. if there are at least 32 cores available, run
 
 ```shell
-run_bench_singlerun.sh -t resharp-solver -j 8 date
+run_bench.sh -t resharp-solver -j 8 date
 ```
 
 The default memory limit is 8 GB.
@@ -155,6 +144,33 @@ The scripts are described as follows:
 evaluation scripts:
 - `run_benchmarks_small.sh` runs a small subset of the benchmarks without extra repetitions for accuracy (should take around 10 minutes)
 - `run_benchmarks_long.sh` runs all the benchmarks with extra repetitions (warning: this can take more than 24 hours waiting for timeouts)
+
+## Scripts to run for the evaluation:
+
+First, we recommend running `run_benchmarks_small.sh` for a small evaluation, this runs a small subset of difficult problems for all solvers and should take around 10 minutes to complete.
+
+Running `create-figures.sh` after this produces a plot in `./figs/plot.png`, where a large amount results are cut at 0.01s. This plot shows that `resharp-solver` has a large number of benchmarks that finished below this resolution of 0.01s.
+
+Next we recommend running `./run_bench.sh -t resharp-solver singlefile`, which runs all ~20 000 benchmarks separated into 4 large files. This should finish in around 3 seconds for `resharp-solver`. This shows that the benchmarks individually take very little time, where the python wrapper often takes more time than the test itself. Other solvers will not be able to finish this set of benchmarks before the timeout threshold.
+
+Next, clear the contents of the `./results` directory, (in case the directory permissions are wrong on linux, you can run `sudo chown -R $USER results/` to reclaim the directory from docker).
+
+Then we recommend running a small set of benchmarks with accurate results below the resolution of 0.01 in `./run_benchmarks_with_repetitions_small.sh`, after which running `create-figures.sh` should show `resharp-solver` consistently outperforming the rest of the solvers. This script should take a couple hours on a single core, but this time can be reduced by setting the `NUM_JOBS` variable inside the `./run_benchmarks_with_repetitions_small.sh` script to run several benchmarks in parallel.
+
+For the full set of benchmarks we recommend starting with solvers that do not have many timeouts, e.g., `./run_bench.sh -t resharp-solver` , `./run_bench.sh -t z3-noodler`. 
+Both of these solvers should finish under 15 minutes. For solvers with more timeouts this
+will take vastly longer, as each individual timeout will take 6s (with ~20 000 benchmarks this means up to 32 hours of timeouts). Running `create-figures.sh` after these benchmarks produces the results of Table 1 for timeouts in `./figs/timeouts.txt`.
+
+The rest of the scripts are optional as they take much longer to evaluate.
+
+To produce more accurate results below the resolution of 0.01s for the full set of benchmarks, you can run e.g., `./run_bench_with_repetitions.sh -t resharp-solver`. This takes around 2s per benchmark, which takes over 10 hours for `resharp-solver` on a single core.
+
+Running all benchmarks with repetitions for all solvers `run_benchmarks_long.sh` may take **up to a week** to complete, running `create-figures.sh` after this command will produce results shown in Figure 1.
+
+## Generating the plot and table
+
+After the benchmarks have finished, the results data is stored in the `./results` directory.
+The script `create-figures.sh` can be used to generate both the cactus plot as `./figs/plot.png` and the timeouts table as `./figs/timeouts.txt` in LaTeX format from the contents of the `./results` directory.
 
 
 ## Reusability

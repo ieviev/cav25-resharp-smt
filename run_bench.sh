@@ -15,7 +15,7 @@ process_tasks() {
 	cat $dir/*.tasks | python3 pyco_proc --csv > $dir/to120.csv
 }
 
-TIMEOUT=600
+TIMEOUT=6
 j_value="1"
 m_value="8"
 # dont include "singlefile" by default, as it takes a very long time
@@ -54,15 +54,15 @@ declare -A tool_mapping=(
     )
 
 declare -A tool_loops=( 
-    ["resharp-solver"]="1000" 
-    ["z3-noodler"]="100" 
-    ["cvc5"]="100" 
-    ["z3"]="100" 
-    ["z3str3"]="100" 
-    ["z3str4"]="100" 
-    ["z3alpha"]="10" 
-    ["ostrich"]="10" 
-    ["ostrichrecl"]="10" 
+    ["resharp-solver"]="1" 
+    ["z3-noodler"]="1" 
+    ["cvc5"]="1" 
+    ["z3"]="1" 
+    ["z3str3"]="1" 
+    ["z3str4"]="1" 
+    ["z3alpha"]="1" 
+    ["ostrich"]="1" 
+    ["ostrichrecl"]="1" 
     )
 
 tools=()

@@ -206,6 +206,6 @@ COPY formulae /formulae
 COPY scripts /scripts
 COPY pyco_proc /pyco_proc
 COPY run_bench.sh /run_bench.sh
-COPY run_bench_singlerun.sh /run_bench_singlerun.sh
+COPY run_bench_with_repetitions.sh /run_bench_with_repetitions.sh
 
 CMD ["/bin/bash"]

@@ -10,7 +10,8 @@ DOCKER_CMD="docker run --rm -ti -v "./results/:/results/" -v "./figs/:/figs/" ca
 # run bash inside the shell
 echo "---------------------------------"
 echo "-- interactive shell --"
-echo "-- try ./run_bench_singlerun.sh --help or see the tools used in their respective directories --"
+echo "-- try ./run_bench.sh --help or see the tools used in their respective directories --"
+echo ""
 $DOCKER_CMD /bin/bash 
 
 

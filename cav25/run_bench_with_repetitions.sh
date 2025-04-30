@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# this script runs ./run_bench_singlerun.sh inside the container 
+# this script runs inside the container 
 # and outputs the results to ./result
 # pass --help for options
 
@@ -13,6 +13,6 @@ cd $wd
 DOCKER_CMD="docker run --rm -ti -v "./results/:/results/" cav25"
 
 args="$*"
-$DOCKER_CMD /bin/bash -c "/run_bench_singlerun.sh $args"
+$DOCKER_CMD /bin/bash -c "/run_bench_with_repetitions.sh $args"
 
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# this script runs ./run_bench.sh inside the container 
+# this script runs inside the container 
 # and outputs the results to ./result
 # pass --help for options
 
