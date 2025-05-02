@@ -56,7 +56,7 @@ The scripts are described as follows:
 - `export_benchmarks.sh` exports the benchmark SMT files to `./formulae/`
 - `export_source.sh` exports the source directory for `resharp-solver` to `./src/`
 - `run_bench.sh` and `run_bench_with_repetitions.sh` run the benchmarks with options (see `Running the benchmarks`)
-- `run_benchmarks_small.sh`, `run_benchmarks_with_repetitions_small.sh` and `run_benchmarks_long.sh` run a set of benchmarks, (see `Scripts to run for the evaluation`)
+- `run_benchmarks_small.sh`, `run_benchmarks_with_repetitions_small.sh` and `run_benchmarks_long.sh` run a set of benchmarks, (see `Instructions for evaluation`)
 
 
 ### Running the benchmarks
