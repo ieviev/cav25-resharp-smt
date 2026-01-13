@@ -209,9 +209,15 @@ pub enum Kind {
 
 #[derive(Eq, Hash, PartialEq, Clone, PartialOrd, Ord)]
 struct Metadata {
-    /// set for pred, sum of all sets for others
-    // psi: TSetId,
     flags: MetaFlags,
+}
+
+#[inline(always)]
+pub fn incr_loop(n1: u32, n2: u32) -> u32 {
+    match n1.overflowing_add(n2) {
+        (_, true) => u32::MAX,
+        (res, false) => res,
+    }
 }
 
 struct MetadataBuilder {
@@ -516,17 +522,12 @@ impl RegexBuilder {
             return _clean_then;
         }
         // attempt left side flattening: ITE(⊤,ITE(a,ε,⊥),⊥) -> ITE(a,ε,⊥)
-        match *self.get_tregex(_clean_then) {
-            TRegex::ITE(leftcond, _inner_then, leftg) if leftg == _clean_else => {
-                let sand = self.solver().and_id(cond, leftcond);
-                let new_then = _inner_then;
-                return self.mk_ite(sand, new_then, _clean_else);
-            }
-            TRegex::ITE(leftcond, _inner_then, TRegexId::BOT) => {
-                let _cond_then = leftcond;
-                let c_it = _inner_then;
+        match self.get_tregex(_clean_then) {
+            TRegex::ITE(leftcond, _inner_then, leftg) if *leftg == _clean_else => {
+                let _cond_then = leftcond.clone();
+                let new_then = _inner_then.clone();
                 let sand = self.solver().and_id(cond, _cond_then);
-                return self.mk_ite(sand, c_it, _clean_else);
+                return self.mk_ite(sand, new_then, _clean_else);
             }
             _ => {}
         }
@@ -1385,8 +1386,8 @@ impl RegexBuilder {
             match self.get_kind(tail) {
                 // also increment loops opportunistically
                 Kind::Loop if head == self.get_left(tail) => {
-                    let new_node =
-                        self.mk_loop(head, self.get_right(tail).0 + 1, self.get_extra(tail) + 1);
+                    let new_max = incr_loop(self.get_extra(tail), 1);
+                    let new_node = self.mk_loop(head, self.get_right(tail).0 + 1, new_max);
                     return new_node;
                 }
 
